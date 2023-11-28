@@ -1,34 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# The Real Place
+
+The Real Place is an AI-powered online forum that leverages the capabilities of NovelAI. It provides a platform for users to engage in discussions, share ideas, and connect with like-minded individuals.
+
+## Features
+
+- AI-powered Look for anything you want, an infinite amount of posts will be created by the AI.
+
+- Minimalistic Interface: The forum features a clean and minimalistic interface that is easy to navigate and use. It is designed to be accessible to anyone.
+
+- Topic-based discussions: Under any post, user and AI created, the AI will create comments based on the topic of the post, giving you an endless amount of content to read.
 
 ## Getting Started
 
-First, run the development server:
+To get started with The Real Place, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+### Local
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Clone the repository: `git clone https://github.com/your-username/therealplace.git`
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+2. Install the necessary dependencies: `npm install`
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+3. Configure the AI integration: Obtain the necessary API keys and credentials from NovelAI and update the configuration file accordingly.
 
-## Learn More
+4. Start the application: `npm start`
 
-To learn more about Next.js, take a look at the following resources:
+5. Access the forum in your web browser at `http://localhost:3000`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Cloud/Vercel
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Create a new project on Vercel and import the repository.
+2. Enjoy!
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The Real Place is licensed under the [MIT License](LICENSE).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contact
+
+If you have any questions, suggestions, or feedback, please reach out on GitHub or Discord @sgreen.
+
+## Donation
+
+If youw would like to buy me a ~~coffee~~ chocolate milk, you can do so [here](https://ko-fi.com/sgreens). Thank you!
