@@ -23,6 +23,20 @@
   overflow-y: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 9999;
+  /* scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(38, 209, 11, 0.2) transparent;
+}
+.subList::-webkit-scrollbar {
+  width: 5px;
+}
+.subList::-webkit-scrollbar-track {
+  background: transparent;
+}
+.subList::-webkit-scrollbar-thumb {
+  background-color: rgba(38, 209, 11, 0.2);
+  border-radius: 20px;
+  border: transparent;
 }
 
 .subItem {

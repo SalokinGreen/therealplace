@@ -417,4 +417,23 @@ Problem is, she told other relatives, who are now all like "wow, what a good guy
     id: 3,
     custom: false,
   },
+  worldNews: {
+    name: "World News",
+    key: "worldNews",
+    description: `Thread Description: World News is dedicated to sharing and discussing current events and major news stories from around the globe. Users post links to news articles from various sources, fostering discussions and debates about international politics, conflicts, developments, and crises. The thread serves as a hub for staying informed about global events and for understanding diverse perspectives on these issues.`,
+    search: `SEARCH RESULTS
+@fbMirrored: world war 5 will be an AI war.
+@LORDhasRisen: Has anyone heard anything about this 'World War' we're supposed to be in?
+@BadBoop: Reasons why we shouldn't be afraid of an imminent World War.
+@CHIPS: Can't believe I survived 4 world wars.
+@SaleLeft: Somebody tell me why the heck there is a World War happening.`,
+    post: `@fbMirrored: I read a recently released report on the probability of the next world war being an AI war. As expected, things are looking grim.
+@Suggestive-Lesbian: Really, can't people stop fighting anymore? There's no reason to kill each other for land.
+@Bitchboi13: Oh, don't be a hypocrite. What else are people supposed to do? They were born for war.
+@Miss-Cool: I have nothing but good feelings about the coming future. I've always known that we would be in danger because of machines, but I'm prepared for what is to come.
+@Karen: Yeah, right. I'm so happy that we are heading towards artificial intelligence. If you haven't noticed, we are a dying species, and that's not a bad thing. We can't go on like this, we have ruined the earth.`,
+    tags: `[ Search: World War; Tags: war, AI; Thread: World News ]`,
+    id: 4,
+    custom: false,
+  },
 };
