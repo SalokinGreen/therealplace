@@ -1,0 +1,42 @@
+/* SubBox.module.css */
+
+.subBox {
+  width: 200px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.activeSub {
+  padding: 10px;
+  background-color: #000000;
+  cursor: pointer;
+}
+
+.subList {
+  position: fixed;
+  width: 200px;
+  background-color: rgb(0, 0, 0);
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+}
+
+.subItem {
+  padding: 10px;
+  border-top: 1px solid #eee;
+  cursor: pointer;
+}
+
+.subItem:hover {
+  background-color: rgba(30, 255, 0, 0.5);
+  color: #000000;
+}
+
+.active {
+  background-color: rgba(30, 255, 0, 0.5);
+  color: #000000;
+}

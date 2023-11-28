@@ -1,0 +1,108 @@
+/* Home.module.css */
+
+/* General styling for the search div */
+.searchDiv,
+.searchDivAfter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px; /* space between elements */
+  transition: top 0.5s ease; /* Add transition for the 'top' property */
+  padding-top: 1rem;
+}
+
+/* Styling for the search input */
+.searchInput {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid rgb(21, 125, 7);
+  font-size: 16px;
+  background-color: transparent;
+  width: 35vw;
+}
+
+/* Styling for the search and write buttons */
+.searchSearchButton,
+.searchWriteButton,
+.searchProfileButton {
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  background-color: rgb(21, 125, 7);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Initial state: centered vertically and horizontally */
+.searchDiv {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+/* After search: positioned at the top */
+.searchDivAfter {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-bottom: 5rem;
+}
+.searchDivRow1 {
+  display: flex;
+  flex-direction: row;
+}
+.searchDivRow2 {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+/* Search Area */
+.searchResults {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-top: 3rem;
+}
+
+.searchResult {
+  display: flex;
+  flex-direction: column;
+  border: rgba(30, 255, 0, 0.153) 1px solid;
+  padding: 1em;
+}
+.searchResult:hover {
+  border: rgba(30, 255, 0, 0.5) 1px solid;
+  color: rgb(30, 255, 0);
+  cursor: pointer;
+}
+
+.searchResultUp {
+  display: flex;
+  gap: 5px;
+  flex-direction: row;
+}
+
+.searchResultAuthor {
+  color: rgb(30, 255, 0);
+}
+.nsfwSwitch {
+  cursor: pointer;
+}
+.nsfwLabel {
+  font-weight: bold;
+}
+.nsfwLabel:hover {
+  color: rgb(30, 255, 0);
+}

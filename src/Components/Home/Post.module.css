@@ -1,0 +1,120 @@
+.post {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  margin-top: 5rem;
+}
+.postHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em;
+  border: 1px solid rgba(38, 209, 11, 0.2);
+  cursor: pointer;
+}
+.author {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: rgb(22, 203, 2);
+}
+
+.commentsDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding: 0.5em;
+  border: 1px solid rgba(38, 209, 11, 0.2);
+  overflow-y: scroll;
+  max-height: 70vh;
+  height: 70vh;
+  width: 70vw;
+  /* scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(38, 209, 11, 0.2) transparent;
+}
+.commentsDiv::-webkit-scrollbar {
+  width: 5px;
+}
+.commentsDiv::-webkit-scrollbar-track {
+  background: transparent;
+}
+.commentsDiv::-webkit-scrollbar-thumb {
+  background-color: rgba(38, 209, 11, 0.2);
+  border-radius: 20px;
+  border: transparent;
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  align-items: flex-start;
+}
+.commentAuthor {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: rgb(22, 203, 2);
+  cursor: pointer;
+}
+.commentText {
+  font-size: 1.2em;
+  font-weight: 400;
+  /* color: rgb(216, 255, 225); */
+  margin-left: 2rem;
+}
+.more {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em;
+}
+.moreText {
+  cursor: pointer;
+  border: 1px solid rgba(38, 209, 11, 0.2);
+  padding: 0.5em;
+  /* border-radius: 40%; */
+  transition: all 0.3s ease-in-out;
+}
+.green {
+  color: rgb(22, 203, 2);
+}
+.white {
+  color: rgb(255, 255, 255);
+}
+.writeArea {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding: 0.5em;
+  border: 1px solid rgba(38, 209, 11, 0.2);
+}
+.writeInput {
+  padding: 0.5em;
+  border-radius: 10px;
+  border: 1px solid rgba(38, 209, 11, 0.2);
+  outline: none;
+  resize: none;
+  font-size: 1.2em;
+  font-weight: 400;
+  color: rgb(22, 203, 2);
+}
+.writeButton {
+  padding: 0.5em;
+  border-radius: 10px;
+  border: 1px solid rgba(38, 209, 11, 0.2);
+  outline: none;
+  font-size: 1.2em;
+  font-weight: 400;
+  color: rgb(22, 203, 2);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  background-color: rgba(38, 209, 11, 0.2);
+}
