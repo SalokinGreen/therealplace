@@ -29,7 +29,9 @@ To get started with The Real Place, follow these steps:
 ### Cloud/Vercel
 
 1. Create a new project on Vercel and import the repository.
-2. Enjoy!
+2. Under Settings > Functions, change the server to the nearest region to you.
+3. Enjoy!
+   _Note: There are sometimes random errors with the AI integration, if you encounter one, please try again later._
 
 ## License
 
