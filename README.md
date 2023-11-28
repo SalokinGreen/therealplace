@@ -16,7 +16,7 @@ To get started with The Real Place, follow these steps:
 
 ### Local
 
-1. Clone the repository: `git clone https://github.com/your-username/therealplace.git`
+1. Clone the repository: `git clone https://github.com/your-username/therealplace.git` || Or download the zip file.
 
 2. Install the necessary dependencies: `npm install`
 
