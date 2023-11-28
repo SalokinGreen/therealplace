@@ -9,6 +9,7 @@
   gap: 2px; /* space between elements */
   transition: top 0.5s ease; /* Add transition for the 'top' property */
   padding-top: 1rem;
+  width: 70vw;
 }
 
 /* Styling for the search input */
@@ -18,7 +19,7 @@
   border: 1px solid rgb(21, 125, 7);
   font-size: 16px;
   background-color: transparent;
-  width: 35vw;
+  width: 100%;
 }
 
 /* Styling for the search and write buttons */
@@ -45,6 +46,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5em;
+  width: 70vw;
 }
 
 /* After search: positioned at the top */
@@ -61,12 +63,19 @@
 .searchDivRow1 {
   display: flex;
   flex-direction: row;
+  width: 100%;
 }
 .searchDivRow2 {
   display: flex;
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
+}
+.searchDivRow3 {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 70vw;
 }
 /* Search Area */
 .searchResults {
@@ -105,4 +114,12 @@
 }
 .nsfwLabel:hover {
   color: rgb(30, 255, 0);
+}
+.tagsInput {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid rgb(21, 125, 7);
+  font-size: 16px;
+  background-color: transparent;
+  width: 100%;
 }

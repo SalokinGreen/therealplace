@@ -22,34 +22,6 @@ export default function Post({
   const [lastTitle, setLastTitle] = useState("");
   const [color, setColor] = useState("white");
   const [comment, setComment] = useState("");
-  useEffect(() => {
-    if (lastTitle !== title) {
-      setPosts([]);
-      setN(0);
-    }
-    setLastTitle(title);
-  }, [title, lastTitle, setN]);
-  useEffect(() => {
-    posts.length === 0 && !generating && openPost && author !== username
-      ? handleGenerate(author + ":", 1, 0)
-      : null;
-  }, [openPost, author, generating, handleGenerate, posts.length, username]);
-  useEffect(() => {
-    if (generating) {
-      color === "white" ? setColor("green") : setColor("white");
-    }
-  }, [color, generating]);
-  useEffect(() => {
-    sortPosts();
-  }, [posts, sortPosts]);
-  const handleGenerate = (add, gens, gn) => {
-    if (generating) {
-      return;
-    }
-    setGenerating(true);
-    generateComments(add, gens, gn);
-    // compare both objects.content in posts and remove the shorter string
-  };
 
   const generateComments = (add, gens, gn) => {
     let oldN = n + gn;
@@ -112,7 +84,7 @@ export default function Post({
   };
   const handlePost = (ps) => {
     let newComment = comment;
-    if (comment === "" && ps === undefined) {
+    if (comment === "" && (ps === undefined || ps === "")) {
       handleGenerate("", 3, 0);
       sortPosts();
       return;
@@ -132,6 +104,35 @@ export default function Post({
       handlePost(e.target.innerHTML);
     }
   };
+  const handleGenerate = (add, gens, gn) => {
+    if (generating) {
+      return;
+    }
+    setGenerating(true);
+    generateComments(add, gens, gn);
+    // compare both objects.content in posts and remove the shorter string
+  };
+  useEffect(() => {
+    if (lastTitle !== title) {
+      setPosts([]);
+      setN(0);
+    }
+    setLastTitle(title);
+  }, [title, lastTitle, setN]);
+  // Come up with a better way to generate posts on open
+  // useEffect(() => {
+  //   posts.length === 0 && !generating && openPost && author !== username
+  //     ? handleGenerate(author + ":", 1, 0)
+  //     : null;
+  // }, [openPost, author, generating, handleGenerate, posts.length, username]);
+  useEffect(() => {
+    if (generating) {
+      color === "white" ? setColor("green") : setColor("white");
+    }
+  }, [generating]);
+  useEffect(() => {
+    sortPosts();
+  }, [posts]);
 
   return (
     <div className={`${styles.post}`}>

@@ -13,12 +13,15 @@ import styles from "./Home.module.css";
 import SearchResult from "./SearchResult";
 import Post from "./Post";
 import Profile from "./Profile";
+import Chip from "../UI/Chip";
+
 // utils
 import buildContext from "../../../util/buildContext";
 import SubBox from "./SubBox";
 function HomePage({ openProfile, setOpenProfile }) {
   const [searchText, setSearchText] = useState("");
   const [oldSearchText, setOldSearchText] = useState("");
+  const [tagsText, setTagsText] = useState("");
   const [searchPerformed, setSearchPerformed] = useState(false);
   const [sub, setSub] = useState("aita");
   const [openPost, setOpenPost] = useState(false);
@@ -174,8 +177,38 @@ function HomePage({ openProfile, setOpenProfile }) {
                 </div>
               </div>
               <div className={`${styles.searchDivRow2Col2}`}>
+                <input
+                  type="text"
+                  placeholder="Tags"
+                  className={`${styles.tagsInput}`}
+                  onKeyPress={(e) => {
+                    if (
+                      e.key === "Enter" &&
+                      tagsText !== "" &&
+                      tags.length < 10
+                    ) {
+                      setTags((prev) => [...prev, tagsText]);
+                      setTagsText("");
+                    }
+                  }}
+                  value={tagsText}
+                  onChange={(e) => setTagsText(e.target.value)}
+                />
+              </div>
+              <div className={`${styles.searchDivRow2Col2}`}>
                 <SubBox subsObj={subs} sub={sub} setSub={setSub} />
               </div>
+            </div>
+            <div className={`${styles.searchDivRow3}`}>
+              {tags.map((tag, key) => (
+                <Chip
+                  key={key}
+                  text={tag}
+                  click={() => {
+                    setTags((prev) => prev.filter((t) => t !== tag));
+                  }}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -230,8 +263,38 @@ function HomePage({ openProfile, setOpenProfile }) {
                 </div>
               </div>
               <div className={`${styles.searchDivRow2Col2}`}>
+                <input
+                  type="text"
+                  placeholder="Tags"
+                  className={`${styles.tagsInput}`}
+                  onKeyPress={(e) => {
+                    if (
+                      e.key === "Enter" &&
+                      tagsText !== "" &&
+                      tags.length < 10
+                    ) {
+                      setTags((prev) => [...prev, tagsText]);
+                      setTagsText("");
+                    }
+                  }}
+                  value={tagsText}
+                  onChange={(e) => setTagsText(e.target.value)}
+                />
+              </div>
+              <div className={`${styles.searchDivRow2Col2}`}>
                 <SubBox subsObj={subs} sub={sub} setSub={setSub} />
               </div>
+            </div>
+            <div className={`${styles.searchDivRow3}`}>
+              {tags.map((tag, key) => (
+                <Chip
+                  key={key}
+                  text={tag}
+                  click={() => {
+                    setTags((prev) => prev.filter((t) => t !== tag));
+                  }}
+                />
+              ))}
             </div>
           </div>
           {!openPost && (
