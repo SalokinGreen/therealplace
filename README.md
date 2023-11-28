@@ -41,4 +41,8 @@ If you have any questions, suggestions, or feedback, please reach out on GitHub 
 
 ## Donation
 
-If youw would like to buy me a ~~coffee~~ chocolate milk, you can do so [here](https://ko-fi.com/sgreens). Thank you!
+If you would like to buy me a ~~coffee~~ chocolate milk, you can do so [here](https://ko-fi.com/sgreens). Thank you!
+
+## Disclaimer
+
+I'm not affiliated, associated, authorized, endorsed by, or in any way officially connected with NovelAI, or any of its subsidiaries or its affiliates. The official NovelAI website can be found at https://novelai.net/. I just love their stuff, they're like fried eggs and swimming without socks!
