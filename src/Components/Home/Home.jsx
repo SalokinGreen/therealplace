@@ -74,25 +74,26 @@ function HomePage({ openProfile, setOpenProfile }) {
     setSearchPerformed(true);
     const rar = buildContext("search", subs[sub], context, attg, subs);
     console.log(rar);
-
-    const responses = await generate(rar, 3);
-    console.log(responses);
-    responses.forEach((element) => {
-      // format: "@user: content"
-      const user = element.split(":")[0];
-      let content = element.split(":")[1].slice(1);
-      // check if last char is @ in content and remove it
-      if (content[content.length - 1] === "@") {
-        content = content.slice(0, -2);
-      }
-      const post = {
-        content: content,
-        user: user,
-        n: sn,
-      };
-      setSearchResults((prev) => [...prev, post]);
-      setSn((prev) => prev + 1);
-    });
+    for (let I = 0; I < 3; I++) {
+      const responses = await generate(rar, 1);
+      console.log(responses);
+      responses.forEach((element) => {
+        // format: "@user: content"
+        const user = element.split(":")[0];
+        let content = element.split(":")[1].slice(1);
+        // check if last char is @ in content and remove it
+        if (content[content.length - 1] === "@") {
+          content = content.slice(0, -2);
+        }
+        const post = {
+          content: content,
+          user: user,
+          n: sn,
+        };
+        setSearchResults((prev) => [...prev, post]);
+        setSn((prev) => prev + 1);
+      });
+    }
   }
   async function generate(input, gens) {
     const response = await axios.post(
