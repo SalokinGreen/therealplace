@@ -28,20 +28,20 @@ export default function Post({
       setN(0);
     }
     setLastTitle(title);
-  }, [title]);
+  }, [title, lastTitle, setN]);
   useEffect(() => {
     posts.length === 0 && !generating && openPost && author !== username
       ? handleGenerate(author + ":", 1, 0)
       : null;
-  }, [openPost]);
+  }, [openPost, author, generating, handleGenerate, posts.length, username]);
   useEffect(() => {
     if (generating) {
       color === "white" ? setColor("green") : setColor("white");
     }
-  }, []);
+  }, [color, generating]);
   useEffect(() => {
     sortPosts();
-  }, [posts]);
+  }, [posts, sortPosts]);
   const handleGenerate = (add, gens, gn) => {
     if (generating) {
       return;
@@ -143,7 +143,7 @@ export default function Post({
       </div>
       <div className={`${styles.commentsDiv}`}>
         {posts.map((post) => (
-          <div className={`${styles.comment}`}>
+          <div className={`${styles.comment}`} key={post.n}>
             <p
               className={`${styles.commentAuthor}`}
               onClick={() => deletePost(post)}

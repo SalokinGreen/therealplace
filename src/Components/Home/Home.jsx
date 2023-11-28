@@ -48,7 +48,7 @@ function HomePage({ openProfile, setOpenProfile }) {
       thread: subs[sub].name,
       nsfw: nsfw,
     });
-  }, [searchText, tags, author, sub, nsfw]);
+  }, [searchText, tags, author, sub, nsfw, title]);
   useEffect(() => {
     // sort posts by n
     setSearchResults((prev) => {
