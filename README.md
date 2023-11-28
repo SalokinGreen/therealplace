@@ -20,7 +20,7 @@ To get started with The Real Place, follow these steps:
 
 2. Install the necessary dependencies: `npm install`
 
-3. Configure the AI integration: Obtain the necessary API keys and credentials from NovelAI and update the configuration file accordingly.
+3. Build: `npm run build`
 
 4. Start the application: `npm start`
 
