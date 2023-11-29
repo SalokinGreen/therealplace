@@ -128,201 +128,92 @@ function HomePage({ openProfile, setOpenProfile }) {
 
   return (
     <div>
-      {/* Not Searching */}
-      {!searchPerformed && (
-        <div className={`${styles.Home}`}>
-          <div className={`${styles.searchDiv}`}>
-            <div className={`${styles.searchDivRow1}`}>
-              <input
-                type="text"
-                placeholder="Search"
-                className={`${styles.searchInput}`}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    handleSearch(e);
-                  }
-                }}
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-              />
-              <button
-                onClick={handleSearch}
-                className={`${styles.searchSearchButton}`}
-              >
-                <FaSearch />
-              </button>
-              <button
-                className={`${styles.searchWriteButton}`}
-                onClick={() => handleOpenPost(searchText, tags, username)}
-              >
-                <FaPenNib />
-              </button>
-              <button
-                className={`${styles.searchProfileButton}`}
-                onClick={() => setOpenProfile(true)}
-              >
-                <CgProfile />
-              </button>
-            </div>
-            <div className={`${styles.searchDivRow2}`}>
-              <div className={`${styles.searchDivRow2Col1}`}>
-                <div
-                  className={`${styles.nsfwSwitch}`}
-                  onClick={() => setNsfw(!nsfw)}
-                >
-                  {nsfw ? (
-                    <div className={`${styles.nsfwLabel}`}>NSFW</div>
-                  ) : (
-                    <div className={`${styles.nsfwLabel}`}>SFW</div>
-                  )}
-                </div>
-              </div>
-              <div className={`${styles.searchDivRow2Col2}`}>
-                <input
-                  type="text"
-                  placeholder="Tags"
-                  className={`${styles.tagsInput}`}
-                  onKeyPress={(e) => {
-                    if (
-                      e.key === "Enter" &&
-                      tagsText !== "" &&
-                      tags.length < 10
-                    ) {
-                      setTags((prev) => [...prev, tagsText]);
-                      setTagsText("");
-                    }
-                  }}
-                  value={tagsText}
-                  onChange={(e) => setTagsText(e.target.value)}
-                />
-              </div>
-              <div className={`${styles.searchDivRow2Col2}`}>
-                <SubBox subsObj={subs} sub={sub} setSub={setSub} />
-              </div>
-            </div>
-            <div className={`${styles.searchDivRow3}`}>
-              {tags.map((tag, key) => (
-                <Chip
-                  key={key}
-                  text={tag}
-                  click={() => {
-                    setTags((prev) => prev.filter((t) => t !== tag));
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-      {/* Searching */}
-      {searchPerformed && (
-        <div className={`${styles.Home}`}>
-          <div className={`${styles.searchDivAfter}`}>
-            <div className={`${styles.searchDivRow1}`}>
-              <input
-                type="text"
-                placeholder="Search"
-                className={`${styles.searchInput}`}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    handleSearch(e);
-                  }
-                }}
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-              />
-              <button
-                onClick={handleSearch}
-                className={`${styles.searchSearchButton}`}
-              >
-                <FaSearch />
-              </button>
-              <button
-                className={`${styles.searchWriteButton}`}
-                onClick={() => handleOpenPost(searchText, tags, username)}
-              >
-                <FaPenNib />
-              </button>
-              <button
-                className={`${styles.searchProfileButton}`}
-                onClick={() => setOpenProfile(true)}
-              >
-                <CgProfile />
-              </button>
-            </div>
-            <div className={`${styles.searchDivRow2}`}>
-              <div className={`${styles.searchDivRow2Col1}`}>
-                <div
-                  className={`${styles.nsfwSwitch}`}
-                  onClick={() => setNsfw(!nsfw)}
-                >
-                  {nsfw ? (
-                    <div className={`${styles.nsfwLabel}`}>NSFW</div>
-                  ) : (
-                    <div className={`${styles.nsfwLabel}`}>SFW</div>
-                  )}
-                </div>
-              </div>
-              <div className={`${styles.searchDivRow2Col2}`}>
-                <input
-                  type="text"
-                  placeholder="Tags"
-                  className={`${styles.tagsInput}`}
-                  onKeyPress={(e) => {
-                    if (
-                      e.key === "Enter" &&
-                      tagsText !== "" &&
-                      tags.length < 10
-                    ) {
-                      setTags((prev) => [...prev, tagsText]);
-                      setTagsText("");
-                    }
-                  }}
-                  value={tagsText}
-                  onChange={(e) => setTagsText(e.target.value)}
-                />
-              </div>
-              <div className={`${styles.searchDivRow2Col2}`}>
-                <SubBox subsObj={subs} sub={sub} setSub={setSub} />
-              </div>
-            </div>
-            <div className={`${styles.searchDivRow3}`}>
-              {tags.map((tag, key) => (
-                <Chip
-                  key={key}
-                  text={tag}
-                  click={() => {
-                    setTags((prev) => prev.filter((t) => t !== tag));
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-          {!openPost && (
-            <div className={`${styles.searchResults}`}>
-              {searchResults.map((post, key) => (
-                <SearchResult post={post} key={key} click={handleOpenPost} />
-              ))}
-            </div>
-          )}
-          {openPost && (
-            <Post
-              title={title}
-              author={author}
-              sub={sub}
-              subs={subs}
-              generate={generate}
-              buildContext={buildContext}
-              openPost={openPost}
-              setOpenPost={setOpenPost}
-              attg={attg}
-              n={pn}
-              setN={setPn}
-              username={username}
+      <div className={`${styles.Home}`}>
+        <div
+          className={searchPerformed ? styles.searchDivAfter : styles.searchDiv}
+        >
+          <div className={`${styles.searchDivRow1}`}>
+            <input
+              type="text"
+              placeholder="Search"
+              className={`${styles.searchInput}`}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleSearch(e);
+                }
+              }}
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
             />
-          )}
+            <button
+              onClick={handleSearch}
+              className={`${styles.searchSearchButton}`}
+            >
+              <FaSearch />
+            </button>
+            <button
+              className={`${styles.searchWriteButton}`}
+              onClick={() => handleOpenPost(searchText, tags, username)}
+            >
+              <FaPenNib />
+            </button>
+            <button
+              className={`${styles.searchProfileButton}`}
+              onClick={() => setOpenProfile(true)}
+            >
+              <CgProfile />
+            </button>
+          </div>
+          <div className={`${styles.searchDivRow2}`}>
+            <div className={`${styles.searchDivRow2Col1}`}>
+              <div
+                className={`${styles.nsfwSwitch}`}
+                onClick={() => setNsfw(!nsfw)}
+              >
+                {nsfw ? (
+                  <div className={`${styles.nsfwLabel}`}>NSFW</div>
+                ) : (
+                  <div className={`${styles.nsfwLabel}`}>SFW</div>
+                )}
+              </div>
+            </div>
+            <div className={`${styles.searchDivRow2Col2}`}>
+              <input
+                type="text"
+                placeholder="Tags"
+                className={`${styles.tagsInput}`}
+                onKeyPress={(e) => {
+                  if (
+                    e.key === "Enter" &&
+                    tagsText !== "" &&
+                    tags.length < 10
+                  ) {
+                    setTags((prev) => [...prev, tagsText]);
+                    setTagsText("");
+                  }
+                }}
+                value={tagsText}
+                onChange={(e) => setTagsText(e.target.value)}
+              />
+            </div>
+            <div className={`${styles.searchDivRow2Col2}`}>
+              <SubBox subsObj={subs} sub={sub} setSub={setSub} />
+            </div>
+          </div>
+          <div className={`${styles.searchDivRow3}`}>
+            {tags.map((tag, key) => (
+              <Chip
+                key={key}
+                text={tag}
+                click={() => {
+                  setTags((prev) => prev.filter((t) => t !== tag));
+                }}
+              />
+            ))}
+          </div>
         </div>
-      )}
+      </div>
+
       {/* Profile */}
       {openProfile && (
         <Profile
