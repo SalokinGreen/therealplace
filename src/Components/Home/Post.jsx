@@ -43,6 +43,9 @@ export default function Post({
     );
     console.log(context);
     let appendString = "";
+    if (posts.length === 0 && author !== username) {
+      appendString = `${author}:`;
+    }
     for (let i = 0; i < gens; i++) {
       await generate(context + add + appendString, 1).then((res) => {
         console.log(res);
