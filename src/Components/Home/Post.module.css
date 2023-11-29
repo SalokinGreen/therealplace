@@ -149,4 +149,7 @@
   .writeButton {
     font-size: 1em;
   }
+  .writeArea {
+    max-width: 99vw;
+  }
 }
