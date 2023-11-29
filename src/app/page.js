@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 import HomePage from "../Components/Home/Home";
 import { useState } from "react";
 export default function Home() {
-  const [openProfile, setOpenProfile] = useState(true);
+  const [openProfile, setOpenProfile] = useState(false);
 
   return (
     <main className={styles.main}>

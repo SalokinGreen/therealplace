@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // style
 import styles from "./Profile.module.css";
@@ -11,10 +11,12 @@ const Profile = ({
 }) => {
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
+    localStorage.setItem("TRPusername", event.target.value);
   };
 
   const handleApiKeyChange = (event) => {
     setApiKey(event.target.value);
+    localStorage.setItem("TRPapiKey", event.target.value);
   };
 
   const handleSubmit = (event) => {

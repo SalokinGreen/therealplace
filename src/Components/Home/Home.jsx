@@ -58,7 +58,16 @@ function HomePage({ openProfile, setOpenProfile }) {
       return prev.sort((a, b) => b.n - a.n);
     });
   }, [searchResults]);
-
+  useEffect(() => {
+    // check if the username and API key are in local storage
+    // if they are, set the state to the values from local storage
+    if (localStorage.getItem("TRPusername")) {
+      setUsername(localStorage.getItem("TRPusername"));
+    }
+    if (localStorage.getItem("TRPapiKey")) {
+      setApiKey(localStorage.getItem("TRPapiKey"));
+    }
+  }, []);
   async function handleSearch(e) {
     e.preventDefault();
     setOpenPost(false);
