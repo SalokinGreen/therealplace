@@ -26,6 +26,9 @@ export default function Post({
 
   const generateComments = async (add, gens, gn) => {
     let oldN = n + gn;
+    if (posts.length === 0) {
+      oldN = 0;
+    }
 
     const context = buildContext(
       "post",
@@ -62,7 +65,7 @@ export default function Post({
               const post = {
                 content: content,
                 user: user,
-                n: oldN,
+                n: n + i,
               };
               setPosts((prev) => [...prev, post]);
               appendString += `${user}: ${content}\n@`;
@@ -72,7 +75,10 @@ export default function Post({
               if (content[content.length - 1] === "@") {
                 content = content.slice(0, -2);
               }
-              setPosts((prev) => [...prev, { user: author, content, n: oldN }]);
+              setPosts((prev) => [
+                ...prev,
+                { user: author, content, n: n + i },
+              ]);
               appendString += `${author}: ${content}\n@`;
             }
             oldN++;
