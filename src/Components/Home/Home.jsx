@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 
 // icons
@@ -35,6 +35,7 @@ function HomePage({ openProfile, setOpenProfile }) {
   const [pn, setPn] = useState(0);
   const [sn, setSn] = useState(0);
   const [generating, setGenerating] = useState(false);
+  const bottomRef = useRef(null);
   const [attg, setAttg] = useState({
     search: searchText,
     title: title,
@@ -84,6 +85,7 @@ function HomePage({ openProfile, setOpenProfile }) {
     setSearchPerformed(true);
     const rar = buildContext("search", subs[sub], context, attg, subs);
     console.log(rar);
+    setGenerating(true);
     for (let I = 0; I < 3; I++) {
       const responses = await generate(rar, 1);
       console.log(responses);
@@ -104,6 +106,7 @@ function HomePage({ openProfile, setOpenProfile }) {
         setSn((prev) => prev + 1);
       });
     }
+    setGenerating(false);
   }
   async function generate(input, gens) {
     const response = await axios.post(
@@ -135,6 +138,9 @@ function HomePage({ openProfile, setOpenProfile }) {
     setOpenPost(true);
     setSearchPerformed(true);
   }
+  useEffect(() => {
+    bottomRef.current.scrollIntoView({ behavior: "smooth" });
+  }, [searchResults]);
 
   return (
     <div>
@@ -231,6 +237,7 @@ function HomePage({ openProfile, setOpenProfile }) {
             {searchResults.map((post, key) => (
               <SearchResult post={post} key={key} click={handleOpenPost} />
             ))}
+            <div ref={bottomRef} />
           </div>
         )}
         {openPost && (

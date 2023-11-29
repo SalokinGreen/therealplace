@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 // style
 import styles from "./Post.module.css";
@@ -23,6 +23,7 @@ export default function Post({
   const [lastTitle, setLastTitle] = useState("");
   const [color, setColor] = useState("white");
   const [comment, setComment] = useState("");
+  const postRef = useRef(null);
 
   const generateComments = async (add, gens, gn) => {
     let oldN = n + gn;
@@ -145,7 +146,11 @@ export default function Post({
   useEffect(() => {
     sortPosts();
   }, [posts]);
-
+  useEffect(() => {
+    if (openPost) {
+      postRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [openPost, posts]);
   return (
     <div className={`${styles.post}`}>
       <div className={`${styles.postHeader}`} onClick={() => setOpenPost()}>
@@ -174,6 +179,7 @@ export default function Post({
             ></div>
           </div>
         ))}
+        <div className={`${styles.bottom}`} ref={postRef}></div>
         {/* <div className={`${styles.more}`}>
           <h2
             className={`${styles.moreText} ${styles[color]}`}
