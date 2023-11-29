@@ -23,7 +23,6 @@ export default function Post({
   const [lastTitle, setLastTitle] = useState("");
   const [color, setColor] = useState("white");
   const [comment, setComment] = useState("");
-  const postRef = useRef(null);
 
   const generateComments = async (add, gens, gn) => {
     let oldN = n + gn;
@@ -47,37 +46,41 @@ export default function Post({
       appendString = `${author}:`;
     }
     for (let i = 0; i < gens; i++) {
-      await generate(context + add + appendString, 1).then((res) => {
-        console.log(res);
-        res.forEach((element) => {
-          // format: "@user: content"
-          if (element.includes(":")) {
-            const user = element.split(":")[0];
-            let content = element.split(":")[1].slice(1);
-            // check if last char is @ in content and remove it
-            if (content[content.length - 1] === "@") {
-              content = content.slice(0, -2);
+      await generate(context + add + appendString, 1)
+        .then((res) => {
+          console.log(res);
+          res.forEach((element) => {
+            // format: "@user: content"
+            if (element.includes(":")) {
+              const user = element.split(":")[0];
+              let content = element.split(":")[1].slice(1);
+              // check if last char is @ in content and remove it
+              if (content[content.length - 1] === "@") {
+                content = content.slice(0, -2);
+              }
+              const post = {
+                content: content,
+                user: user,
+                n: oldN,
+              };
+              setPosts((prev) => [...prev, post]);
+              appendString += `${user}: ${content}\n@`;
+            } else {
+              let content = element.slice(1);
+              // check if last char is @ in content and remove it
+              if (content[content.length - 1] === "@") {
+                content = content.slice(0, -2);
+              }
+              setPosts((prev) => [...prev, { user: author, content, n: oldN }]);
+              appendString += `${author}: ${content}\n@`;
             }
-            const post = {
-              content: content,
-              user: user,
-              n: oldN,
-            };
-            setPosts((prev) => [...prev, post]);
-            appendString += `${user}: ${content}\n@`;
-          } else {
-            let content = element.slice(1);
-            // check if last char is @ in content and remove it
-            if (content[content.length - 1] === "@") {
-              content = content.slice(0, -2);
-            }
-            setPosts((prev) => [...prev, { user: author, content, n: oldN }]);
-            appendString += `${author}: ${content}\n@`;
-          }
-          oldN++;
+            oldN++;
+          });
+          setN(oldN);
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        setN(oldN);
-      });
     }
     setGenerating(false);
 
@@ -149,6 +152,8 @@ export default function Post({
   useEffect(() => {
     sortPosts();
   }, [posts]);
+  const postRef = useRef(null);
+
   useEffect(() => {
     if (openPost) {
       postRef.current.scrollIntoView({ behavior: "smooth" });
@@ -183,14 +188,6 @@ export default function Post({
           </div>
         ))}
         <div className={`${styles.bottom}`} ref={postRef}></div>
-        {/* <div className={`${styles.more}`}>
-          <h2
-            className={`${styles.moreText} ${styles[color]}`}
-            onClick={() => handleGenerate("", 3)}
-          >
-            #More
-          </h2>
-        </div> */}
       </div>
       <div className={`${styles.writeArea}`}>
         <div

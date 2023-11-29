@@ -35,7 +35,6 @@ function HomePage({ openProfile, setOpenProfile }) {
   const [pn, setPn] = useState(0);
   const [sn, setSn] = useState(0);
   const [generating, setGenerating] = useState(false);
-  const bottomRef = useRef(null);
   const [attg, setAttg] = useState({
     search: searchText,
     title: title,
@@ -138,6 +137,7 @@ function HomePage({ openProfile, setOpenProfile }) {
     setOpenPost(true);
     setSearchPerformed(true);
   }
+  const bottomRef = useRef(null);
   useEffect(() => {
     bottomRef.current.scrollIntoView({ behavior: "smooth" });
   }, [searchResults]);
