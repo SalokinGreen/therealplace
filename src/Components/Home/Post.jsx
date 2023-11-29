@@ -16,9 +16,10 @@ export default function Post({
   n,
   setN,
   username,
+  generating,
+  setGenerating,
 }) {
   const [posts, setPosts] = useState([]);
-  const [generating, setGenerating] = useState(false);
   const [lastTitle, setLastTitle] = useState("");
   const [color, setColor] = useState("white");
   const [comment, setComment] = useState("");
@@ -44,7 +45,6 @@ export default function Post({
     for (let i = 0; i < gens; i++) {
       await generate(context + add + appendString, 1).then((res) => {
         console.log(res);
-        setGenerating(false);
         res.forEach((element) => {
           // format: "@user: content"
           if (element.includes(":")) {
@@ -75,6 +75,7 @@ export default function Post({
         setN(oldN);
       });
     }
+    setGenerating(false);
 
     return true;
   };
@@ -88,6 +89,9 @@ export default function Post({
     console.log(posts);
   };
   const handlePost = (ps) => {
+    if (generating) {
+      return;
+    }
     let newComment = comment;
     if (comment === "" && (ps === undefined || ps === "")) {
       handleGenerate("", 3, 0);
@@ -104,6 +108,9 @@ export default function Post({
     sortPosts();
   };
   const handleEnter = (e) => {
+    if (generating) {
+      e.preventDefault();
+    }
     if (e.key === "Enter") {
       e.preventDefault();
       handlePost(e.target.innerHTML);
@@ -188,7 +195,9 @@ export default function Post({
           onKeyDown={(e) => handleEnter(e)}
         ></div>
         <button
-          className={`${styles.writeButton}`}
+          className={
+            generating ? styles.writeButtonGenerating : styles.writeButton
+          }
           onClick={() => handlePost()}
         >
           Post

@@ -34,6 +34,7 @@ function HomePage({ openProfile, setOpenProfile }) {
   const [title, setTitle] = useState("");
   const [pn, setPn] = useState(0);
   const [sn, setSn] = useState(0);
+  const [generating, setGenerating] = useState(false);
   const [attg, setAttg] = useState({
     search: searchText,
     title: title,
@@ -156,7 +157,11 @@ function HomePage({ openProfile, setOpenProfile }) {
             />
             <button
               onClick={handleSearch}
-              className={`${styles.searchSearchButton}`}
+              className={
+                generating
+                  ? styles.searchSearchButtonGenerating
+                  : styles.searchSearchButton
+              }
             >
               <FaSearch />
             </button>
@@ -242,6 +247,8 @@ function HomePage({ openProfile, setOpenProfile }) {
             n={pn}
             setN={setPn}
             username={username}
+            generating={generating}
+            setGenerating={setGenerating}
           />
         )}
       </div>

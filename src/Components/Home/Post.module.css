@@ -18,6 +18,7 @@
   padding: 0.5em;
   border: 1px solid rgba(38, 209, 11, 0.2);
   cursor: pointer;
+  max-height: 10vh;
 }
 .author {
   font-size: 1.5em;
@@ -118,6 +119,18 @@
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   background-color: rgba(38, 209, 11, 0.2);
+}
+.writeButtonGenerating {
+  padding: 0.5em;
+  border-radius: 10px;
+  border: 1px solid rgba(38, 209, 11, 0.2);
+  outline: none;
+  font-size: 1.2em;
+  font-weight: 400;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  background-color: rgba(168, 168, 168, 0.5);
 }
 
 /* mobile style */
