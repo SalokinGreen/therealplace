@@ -52,8 +52,9 @@ export default function Post({
           res.forEach((element) => {
             // format: "@user: content"
             if (element.includes(":")) {
-              const user = element.split(":")[0];
-              let content = element.split(":")[1].slice(1);
+              let parts = element.split(":");
+              const user = parts.shift();
+              let content = parts.join(":").slice(1);
               // check if last char is @ in content and remove it
               if (content[content.length - 1] === "@") {
                 content = content.slice(0, -2);
