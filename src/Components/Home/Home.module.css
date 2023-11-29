@@ -82,9 +82,24 @@
   display: flex;
   flex-direction: column;
   gap: 0.5em;
-  margin-top: 3rem;
+  margin-top: 5rem;
+  max-height: 70vh;
+  overflow-y: scroll;
+  /* scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(38, 209, 11, 0.2) transparent;
 }
-
+.searchResults::-webkit-scrollbar {
+  width: 5px;
+}
+.searchResults::-webkit-scrollbar-track {
+  background: transparent;
+}
+.searchResults::-webkit-scrollbar-thumb {
+  background-color: rgba(38, 209, 11, 0.2);
+  border-radius: 20px;
+  border: transparent;
+}
 .searchResult {
   display: flex;
   flex-direction: column;
@@ -122,4 +137,32 @@
   font-size: 16px;
   background-color: transparent;
   width: 100%;
+}
+
+/* mobile style */
+@media only screen and (max-width: 600px) {
+  .searchDiv {
+    width: 90vw;
+  }
+  .searchDivAfter {
+    width: 90vw;
+  }
+  .searchInput {
+    width: 100%;
+  }
+  .searchSearchButton {
+    width: fit-content;
+  }
+  .searchWriteButton {
+    width: fit-content;
+  }
+  .searchProfileButton {
+    width: fit-content;
+  }
+  .searchResults {
+    width: 90vw;
+  }
+  .searchDivRow2 {
+    gap: 0.5em;
+  }
 }

@@ -95,6 +95,7 @@
   gap: 0.5em;
   padding: 0.5em;
   border: 1px solid rgba(38, 209, 11, 0.2);
+  max-width: 70vw;
 }
 .writeInput {
   padding: 0.5em;
@@ -117,4 +118,35 @@
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   background-color: rgba(38, 209, 11, 0.2);
+}
+
+/* mobile style */
+@media (max-width: 768px) {
+  .post {
+    max-height: 75vh;
+    margin-top: 4rem;
+    width: 99vw;
+  }
+  .postTitle {
+    font-size: 1em;
+  }
+  .author {
+    font-size: 1em;
+  }
+  .commentsDiv {
+    max-height: 70vh;
+    width: 99vw;
+  }
+  .commentAuthor {
+    font-size: 1em;
+  }
+  .commentText {
+    font-size: 1em;
+  }
+  .writeInput {
+    font-size: 1em;
+  }
+  .writeButton {
+    font-size: 1em;
+  }
 }
