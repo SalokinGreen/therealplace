@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 
 // style
 import styles from "./Profile.module.css";
+
+// components
+import Button from "../UI/Button";
+import Exit from "../UI/Exit";
+import Modal from "../UI/Modal";
 const Profile = ({
   setOpenProfile,
   username,
@@ -27,11 +32,7 @@ const Profile = ({
   };
 
   return (
-    <div className={styles.profileContainer}>
-      <p className={styles.exitButton} onClick={() => setOpenProfile(false)}>
-        X
-      </p>
-      <h2 className={styles.profileH2}>Profile</h2>
+    <Modal isOpen={true} onClose={() => setOpenProfile(false)} size="small">
       <div className={styles.profileDetailsContainer}>
         <div className={styles.profileDetailContainer}>
           <p className={styles.profileLabel}>Username</p>
@@ -51,8 +52,12 @@ const Profile = ({
             onChange={handleApiKeyChange}
           />
         </div>
+        <div className={styles.profileDetailContainer}>
+          <p className={styles.profileLabel}>Threads</p>
+          <Button onClick={handleSubmit}>OPEN</Button>
+        </div>
       </div>
-    </div>
+    </Modal>
   );
 };
 
