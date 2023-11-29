@@ -212,6 +212,29 @@ function HomePage({ openProfile, setOpenProfile }) {
             ))}
           </div>
         </div>
+        {!openPost && (
+          <div className={`${styles.searchResults}`}>
+            {searchResults.map((post, key) => (
+              <SearchResult post={post} key={key} click={handleOpenPost} />
+            ))}
+          </div>
+        )}
+        {openPost && (
+          <Post
+            title={title}
+            author={author}
+            sub={sub}
+            subs={subs}
+            generate={generate}
+            buildContext={buildContext}
+            openPost={openPost}
+            setOpenPost={setOpenPost}
+            attg={attg}
+            n={pn}
+            setN={setPn}
+            username={username}
+          />
+        )}
       </div>
 
       {/* Profile */}
