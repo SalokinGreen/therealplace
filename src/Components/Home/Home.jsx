@@ -14,7 +14,7 @@ import SearchResult from "./SearchResult";
 import Post from "./Post";
 import Profile from "./Profile";
 import Chip from "../UI/Chip";
-
+import Thread from "./Thread";
 // utils
 import buildContext from "../../../util/buildContext";
 import SubBox from "./SubBox";
@@ -35,6 +35,17 @@ function HomePage({ openProfile, setOpenProfile }) {
   const [pn, setPn] = useState(0);
   const [sn, setSn] = useState(0);
   const [generating, setGenerating] = useState(false);
+
+  const [openThreads, setOpenThreads] = useState(false);
+
+  const [threads, setThreads] = useState([]);
+  useEffect(() => {
+    // Turn the subs object into an array
+    const threadsArray = Object.values(subs);
+    // Set the threads state to the array
+    console.log(threadsArray);
+    setThreads(threadsArray);
+  }, []);
   const [attg, setAttg] = useState({
     search: searchText,
     title: title,
@@ -269,7 +280,13 @@ function HomePage({ openProfile, setOpenProfile }) {
           setApiKey={setApiKey}
           openProfile={openProfile}
           setOpenProfile={setOpenProfile}
+          setOpenThreads={setOpenThreads}
         />
+      )}
+
+      {/* Threads */}
+      {openThreads && (
+        <Thread open={openThreads} setOpen={setOpenThreads} threads={threads} />
       )}
     </div>
   );

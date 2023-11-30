@@ -54,5 +54,20 @@ export default function buildContext(type, sub, context, attg, subs) {
   });
   returnString += cparts;
   returnString += "@"; // this is to make sure the last post is not cut off
-  return returnString;
+  return cleanString(returnString);
+}
+
+function cleanString(string) {
+  // remove white spaces
+  while (string.includes("\n\n")) {
+    string = string.replace("\n\n", "\n");
+  }
+  string.replace(" \n", "\n");
+  string.replace("\n ", "\n");
+  while (string.includes("  ")) {
+    string = string.replace("  ", " ");
+  }
+  string = string.trim();
+
+  return string;
 }

@@ -13,6 +13,7 @@ const Profile = ({
   setUsername,
   apiKey,
   setApiKey,
+  setOpenThreads,
 }) => {
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -29,6 +30,11 @@ const Profile = ({
     // Perform any necessary actions with the username and API key
     console.log("Username:", username);
     console.log("API Key:", apiKey);
+  };
+  const handleThreads = (event) => {
+    event.preventDefault();
+    setOpenThreads(true);
+    setOpenProfile(false);
   };
 
   return (
@@ -54,7 +60,7 @@ const Profile = ({
         </div>
         <div className={styles.profileDetailContainer}>
           <p className={styles.profileLabel}>Threads</p>
-          <Button onClick={handleSubmit}>OPEN</Button>
+          <Button onClick={handleThreads}>OPEN</Button>
         </div>
       </div>
     </Modal>
