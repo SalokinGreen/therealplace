@@ -64,6 +64,7 @@ export default function Groupe({
                     className={styles.groupeOption}
                     selected={index === currentGroupe}
                     onClick={() => setCurrentGroupe(index)}
+                    key={index}
                   >
                     {bias ? `Bias: ${item.value}` : `Set ${index + 1}`}
                   </option>
@@ -94,12 +95,12 @@ export default function Groupe({
           {groupe[currentGroupe] &&
             groupe[currentGroupe].words.map((item, index) => {
               return (
-                <div className={styles.groupeItem}>
+                <div className={styles.groupeItem} key={index}>
                   <div
                     className={styles.groupeItemText}
                     onClick={() => handleRemove(index)}
                   >
-                    "{item}"
+                    &quot;{item}&quot;
                   </div>
                 </div>
               );
