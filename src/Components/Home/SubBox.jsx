@@ -2,9 +2,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./SubBox.module.css"; // Make sure to create this CSS module
 
-const SubBox = ({ subsObj, sub, setSub }) => {
+const SubBox = ({ subsArray, sub, setSub }) => {
   // Make an array out of the subs object
-  const subs = Object.keys(subsObj);
+
   const subBoxRef = useRef(null);
 
   // State to track the active sub and the open/closed state of the box
@@ -31,20 +31,21 @@ const SubBox = ({ subsObj, sub, setSub }) => {
   return (
     <div className={styles.subBox} ref={subBoxRef}>
       <div className={styles.activeSub} onClick={() => setIsOpen(!isOpen)}>
-        {subsObj[sub].name}
+        {subsArray.find((element) => element.key === sub) &&
+          subsArray.find((element) => element.key === sub).name}
       </div>
 
       {isOpen && (
         <div className={styles.subList}>
-          {subs.map((element) => (
+          {subsArray.map((element) => (
             <div
               key={element}
               className={`${styles.subItem} ${
                 element === sub ? styles.active : ""
               }`}
-              onClick={() => handleSubChange(element)}
+              onClick={() => handleSubChange(element.key)}
             >
-              {subsObj[element].name}
+              {element.name}
             </div>
           ))}
         </div>

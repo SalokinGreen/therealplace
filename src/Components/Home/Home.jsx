@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, use } from "react";
 import axios from "axios";
 
 // icons
@@ -40,18 +40,34 @@ function HomePage({ openProfile, setOpenProfile }) {
 
   const [threads, setThreads] = useState([]);
   useEffect(() => {
+    const customThreads = threads.filter((t) => t.custom);
+    if (customThreads.length > 0) {
+      localStorage.setItem("customThreads", JSON.stringify(customThreads));
+    }
+  }, [threads]);
+
+  useEffect(() => {
     // Turn the subs object into an array
     const threadsArray = Object.values(subs);
     // Set the threads state to the array
     console.log(threadsArray);
-    setThreads(threadsArray);
+    if (localStorage.getItem("customThreads")) {
+      // if there are, set the threads state to the custom threads
+      const customThreads = JSON.parse(localStorage.getItem("customThreads"));
+      console.log(customThreads);
+      setThreads((prev) => [...threadsArray, ...customThreads]);
+    } else {
+      setThreads(threadsArray);
+    }
   }, []);
   const [attg, setAttg] = useState({
     search: searchText,
     title: title,
     tags: tags,
     author: author,
-    thread: subs[sub].name,
+    thread:
+      threads.find((element) => element.key === sub) &&
+      threads.find((element) => element.key === sub).name,
     nsfw: nsfw,
   });
   useEffect(() => {
@@ -60,7 +76,9 @@ function HomePage({ openProfile, setOpenProfile }) {
       title: title,
       tags: tags,
       author: author,
-      thread: subs[sub].name,
+      thread:
+        threads.find((element) => element.key === sub) &&
+        threads.find((element) => element.key === sub).name,
       nsfw: nsfw,
     });
   }, [searchText, tags, author, sub, nsfw, title]);
@@ -93,7 +111,13 @@ function HomePage({ openProfile, setOpenProfile }) {
       context = searchResults;
     }
     setSearchPerformed(true);
-    const rar = buildContext("search", subs[sub], context, attg, subs);
+    const rar = buildContext(
+      "search",
+      threads.find((s) => s.key === sub),
+      context,
+      attg,
+      threads
+    );
     console.log(rar);
     setGenerating(true);
     for (let I = 0; I < 3; I++) {
@@ -228,7 +252,7 @@ function HomePage({ openProfile, setOpenProfile }) {
               />
             </div>
             <div className={`${styles.searchDivRow2Col2}`}>
-              <SubBox subsObj={subs} sub={sub} setSub={setSub} />
+              <SubBox subsArray={threads} sub={sub} setSub={setSub} />
             </div>
           </div>
           <div className={`${styles.searchDivRow3}`}>
@@ -256,7 +280,7 @@ function HomePage({ openProfile, setOpenProfile }) {
             title={title}
             author={author}
             sub={sub}
-            subs={subs}
+            subs={threads}
             generate={generate}
             buildContext={buildContext}
             openPost={openPost}
@@ -286,7 +310,16 @@ function HomePage({ openProfile, setOpenProfile }) {
 
       {/* Threads */}
       {openThreads && (
-        <Thread open={openThreads} setOpen={setOpenThreads} threads={threads} />
+        <Thread
+          open={openThreads}
+          setOpen={setOpenThreads}
+          threads={threads}
+          setThreads={setThreads}
+          threadsList={threads}
+          setThreadsList={setThreads}
+          activeThread={sub}
+          setActiveThread={setSub}
+        />
       )}
     </div>
   );
@@ -305,7 +338,10 @@ const subs = {
 @PityParty: Am I the asshole for wanting to be everyone's moral compass?
 @PrettyBoyXD: Am I the asshole for declining an invitation to a wedding because it's impossible for you to attend?
 @SimplyTheBest: AITA for replacing your dress with a more expensive one at the bridal shop?`,
-    tags: "[ Search: Wedding; Tags: wedding, guest; Thread: Am I the Asshole? (AITA) ]",
+    searchTags:
+      "[ Search: Wedding; Tags: wedding, guest; Thread: Am I the Asshole? (AITA) ]",
+    postTags:
+      '[ Author: @Ok-History; Title: AITA for "outshining" the bride?; Tags: wedding, guest; Thread: Am I the Asshole? (AITA) ]',
     post: `@Ok-History: So my younger cousin is getting married, to a great guy, I think they will be happy together. It was fun helping arrange the wedding, the niece is so cute (8 yrs). Anyway, my mom mentioned me in a toast at the reception, because I was one of the two people paying for the entire cost of the wedding. My cousin is a professional with a good salary, but which comes from parents with decent money. In fact, one reason we're close is that I'm also living off my parents. She was going to pay for a wedding on her own, but I pointed out she had always wanted to travel, and if she saved up a down-payment on a house, she'd be killing two birds with one stone.
 Problem is, she told other relatives, who are now all like "wow, what a good guy" and stuff. Now I don't want her to have to pay me back or anything, but I guess... now I look like a better person than her? And she's the one getting married. I guess I am getting some attention because of it, but she's been complaining on how she's "just the daughter, not as important as the son/son-in-law". I can tell she's genuinely hurt by this. But I guess I would rather she pay her dues than get gold-digging complimented.
 @JustAFarmer: No. You were trying to help your cousin and you succeeded. They do tend to look down on women in your culture for whatever reason, so the attention you're getting is not entirely undeserved, but yes, it's aimed towards the wrong person.
@@ -318,8 +354,11 @@ Problem is, she told other relatives, who are now all like "wow, what a good guy
   ask: {
     name: "Ask Community",
     key: "ask",
-    description: `Thread Description: Ask Community is a platform where individuals pose questions on a wide range of topics, seeking insights and experiences from the broader community. Questions can range from practical advice and personal experiences to seeking opinions on complex issues. Users from diverse backgrounds share their knowledge, opinions, and personal stories in response, fostering a space for learning and diverse perspectives.`,
-    tags: "[ Search: How to cook meth; Tags: chemistry, illegal, guide; Thread: Ask Community ]",
+    description: `Ask Community is a platform where individuals pose questions on a wide range of topics, seeking insights and experiences from the broader community. Questions can range from practical advice and personal experiences to seeking opinions on complex issues. Users from diverse backgrounds share their knowledge, opinions, and personal stories in response, fostering a space for learning and diverse perspectives.`,
+    searchTags:
+      "[ Search: How to cook meth; Tags: chemistry, illegal, guide; Thread: Ask Community ]",
+    postTags:
+      "[ Author: @GujcestLuvr; Title: How do I cook meth?; Tags: chemistry, illegal, guide; Thread: Ask Community ]",
     search: `SEARCH RESULTS
 @GujcestLuvr: How do I cook meth?
 @BodyHeat69: Guide to cooking meth!
@@ -336,10 +375,12 @@ Problem is, she told other relatives, who are now all like "wow, what a good guy
   },
   til: {
     name: "Today I Learned",
-    key: "ask",
+    key: "til",
     description:
-      "Thread Description: Today I Learned (TIL) features posts where users share interesting and often little-known facts or information that they've recently discovered. The focus is on sharing knowledge and intriguing trivia, with an emphasis on verified and accurate information. Users contribute by discussing, adding additional details, or sharing related experiences, creating an environment of continuous learning and discovery.",
-    tags: "[ Search: Blank; Tags: sfw; Thread: Today I Learned ]",
+      "Today I Learned (TIL) features posts where users share interesting and often little-known facts or information that they've recently discovered. The focus is on sharing knowledge and intriguing trivia, with an emphasis on verified and accurate information. Users contribute by discussing, adding additional details, or sharing related experiences, creating an environment of continuous learning and discovery.",
+    searchTags: "[ Search: Blank; Tags: sfw; Thread: Today I Learned ]",
+    postTags:
+      "[ Author: @BobismySenpai; Search: TIL that a popcorn kernel contains enough energy to break a human bone.; Tags: sfw; Thread: Today I Learned ]",
     search: `SEARCH RESULTS
 @PhilosophizeWith: TIL that in some states, you don't have to worry about getting a speeding ticket if you are driving a police car.
 @FutureEmails: TIL that any line of text can become bold by starting the line with a * and ending it with an asterisk.
@@ -355,7 +396,7 @@ Problem is, she told other relatives, who are now all like "wow, what a good guy
   schreckNet: {
     name: "SchreckNet",
     key: "schreckNet",
-    description: `Thread Description: SchreckNet is an underground network for the kindred world wide, mostly nosferatus. In the World of Darkness.`,
+    description: `SchreckNet is a clandestine online network exclusively designed for vampires, particularly Nosferatu, within the World of Darkness. It acts as a vital communication hub, enabling vampires from across the globe to share information, strategize, and stay connected while maintaining their secrecy in the supernatural world. This digital sanctuary is essential for vampires to manage their affairs, exchange knowledge, and uphold their hidden society amidst the complexities of their nocturnal existence.`,
     search: `SEARCH RESULTS
 @Blackductape: Did Dracula walk among us?
 @IAm127: Dracula was real.
@@ -367,14 +408,16 @@ Problem is, she told other relatives, who are now all like "wow, what a good guy
 @CreepsMcGee: According to the 300 year old diaries, someone named Vlad Tepes, was a cruel and ruthless ruler. Very much a Vanheim style of thing.
 @IncoherentQ: Anyone have proof besides horror stories?
 @Nicktoons: Play your cards right and maybe one day you'll have access to it.`,
-    tags: `[ Search: Dracula; Tags: sfw, historical figure; Thread: SchreckNet ]`,
+    searchTags: `[ Search: Dracula; Tags: sfw, historical figure; Thread: SchreckNet ]`,
+    postTags:
+      "[ Author: @Blackductape; Title: Did Dracula walk among us?; Tags: sfw, historical figure; Thread: SchreckNet ]",
     id: 3,
     custom: false,
   },
   worldNews: {
     name: "World News",
     key: "worldNews",
-    description: `Thread Description: World News is dedicated to sharing and discussing current events and major news stories from around the globe. Users post links to news articles from various sources, fostering discussions and debates about international politics, conflicts, developments, and crises. The thread serves as a hub for staying informed about global events and for understanding diverse perspectives on these issues.`,
+    description: `World News is dedicated to sharing and discussing current events and major news stories from around the globe. Users post links to news articles from various sources, fostering discussions and debates about international politics, conflicts, developments, and crises. The thread serves as a hub for staying informed about global events and for understanding diverse perspectives on these issues.`,
     search: `SEARCH RESULTS
 @fbMirrored: world war 5 will be an AI war.
 @LORDhasRisen: Has anyone heard anything about this 'World War' we're supposed to be in?
@@ -386,8 +429,31 @@ Problem is, she told other relatives, who are now all like "wow, what a good guy
 @Bitchboi13: Oh, don't be a hypocrite. What else are people supposed to do? They were born for war.
 @Miss-Cool: I have nothing but good feelings about the coming future. I've always known that we would be in danger because of machines, but I'm prepared for what is to come.
 @Karen: Yeah, right. I'm so happy that we are heading towards artificial intelligence. If you haven't noticed, we are a dying species, and that's not a bad thing. We can't go on like this, we have ruined the earth.`,
-    tags: `[ Search: World War; Tags: war, AI; Thread: World News ]`,
+    searchTags: `[ Search: World War; Tags: war, AI; Thread: World News ]`,
+    postTags:
+      "[ Author: @fbMirrored; Title: World war 5 will be an AI war; Tags: sfw, good news; Thread: World News ]",
     id: 4,
+    custom: false,
+  },
+  ama: {
+    name: "Ask Me Anything (AMA)",
+    key: "ama",
+    description: `Ask Me Anything is a community where individuals from all walks of life, including celebrities, experts in various fields, and people with unique experiences, invite others to ask them questions. These sessions are often insightful, covering a wide range of topics depending on the background of the person hosting the AMA. The format encourages open dialogue and provides a unique opportunity for community members to engage directly with people they might not otherwise have access to, gaining perspectives and knowledge on diverse subjects. This community is known for its candid conversations and the sharing of personal stories and professional insights.`,
+    search: `SEARCH RESULTS
+@BeautifulQuizine: AMA I'm a trained killer.
+@WhatTheFIsThat: AMA I consume a deadly amount of Drugs every day.
+@Friendship_is_Foreskin: AMA My boyfriend and I are not at all a normal couple.
+@BooksAreForBarbarians: AMA I'm a serial killer that targets readers.
+@BossGod1999: Ask me anything I'm a combat medic.`,
+    post: `@BeautifulQuizine: Hello there, my name is John Doe. I'm a trained killer. Any questions? I'm willing to talk about anything.
+@IRegretEverything: What made you want to kill? Was it fear or an insatiable lust for blood?
+@BeautifulQuizine: Mostly boredom. It was either become a killer or a prostitute. My morals made me choose the former.
+@SpeedyBoi: How do you kill your victims?
+@BeautifulQuizine: Headshots all the way. Helps me gain easy access to their brains.`,
+    searchTags: `[ Search: dangerous; Tags: sfw, unique; Thread: Ask Me Anything (AMA) ]`,
+    postTags:
+      "[ Author: @BeautifulQuizine; Title: AMA I'm a trained killer.; Tags: sfw, unique; Thread: Ask Me Anything (AMA) ]",
+    id: 5,
     custom: false,
   },
 };

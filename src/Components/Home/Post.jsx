@@ -32,7 +32,7 @@ export default function Post({
 
     const context = buildContext(
       "post",
-      subs[sub],
+      subs.find((s) => s.key === sub),
       posts,
       {
         title,
@@ -166,6 +166,24 @@ export default function Post({
       postRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [openPost, posts]);
+  const handleBlur = (e, post) => {
+    let string = e.target.innerHTML;
+    string = string.replace(/<div>/g, "\n");
+    string = string.replace(/<\/div>/g, "");
+    string = string.replace(/<br>/g, "\n");
+    string = string.replace(/<\/br>/g, "");
+    string = string.replace(/&nbsp;/g, " ");
+    string = string.replace(/<p>/g, "");
+    string = string.replace(/<\/p>/g, "");
+    string = string.replace(/<span>/g, "");
+    string = string.replace(/<\/span>/g, "");
+    string = string.replace(/<br\/>/g, "");
+    string = string.replace(/<br \/>/g, "");
+    string = string.replace(/<br>/g, "");
+    string = string.replace(/<br \/>/g, "");
+    string = string.replace(/<br\/>/g, "");
+    post.content = e.target.innerHTML;
+  };
   return (
     <div className={`${styles.post}`}>
       <div className={`${styles.postHeader}`} onClick={() => setOpenPost()}>
@@ -188,8 +206,9 @@ export default function Post({
               contentEditable
               suppressContentEditableWarning
               dangerouslySetInnerHTML={{ __html: post.content }}
+              style={{ whiteSpace: "pre-line" }}
               onBlur={(e) => {
-                post.content = e.target.innerHTML;
+                handleBlur(e, post);
               }}
             ></div>
           </div>

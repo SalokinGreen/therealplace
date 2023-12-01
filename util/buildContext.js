@@ -4,11 +4,12 @@ export default function buildContext(type, sub, context, attg, subs) {
   let usedSubs = [];
   usedSubs.push(sub.id);
   returnString += "";
-  returnString += sub["tags"] + "\n";
+  returnString += type === "search" ? sub["searchTags"] : sub["postTags"];
+  returnString += "\n";
   returnString += "Thread Description: " + sub["description"] + "\n***\n";
   returnString += sub[type] + "\n";
-  let subsArray = Object.values(subs);
-  while (n < 1) {
+  const subsArray = subs.filter((s) => !s.custom);
+  while (n < 3) {
     console.log(subsArray);
     const randomSubIndex = Math.floor(Math.random() * subsArray.length);
     console.log(randomSubIndex);
@@ -17,7 +18,9 @@ export default function buildContext(type, sub, context, attg, subs) {
     if (!usedSubs.includes(newSub.id)) {
       usedSubs.push(sub.id);
       returnString += "⁂\n";
-      returnString += newSub["tags"] + "\n";
+      returnString +=
+        type === "search" ? newSub["searchTags"] : newSub["postTags"];
+      returnString += "\n";
       returnString +=
         "Thread Description: " + newSub["description"] + "\n***\n";
       returnString += newSub[type] + "\n";
