@@ -114,3 +114,41 @@
   border-radius: 20px;
   border: transparent;
 }
+
+/* mobile */
+@media (max-width: 768px) {
+  .threads {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .threadLI {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  .thread {
+    flex: 1;
+    max-height: 100%;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(38, 209, 11, 0.2) transparent;
+  }
+  .thread::-webkit-scrollbar {
+    width: 5px;
+  }
+  .thread::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .thread::-webkit-scrollbar-thumb {
+    background-color: rgba(38, 209, 11, 0.2);
+    border-radius: 20px;
+    border: transparent;
+  }
+  .threadInput {
+    width: 100%;
+    max-height: 20vh;
+    height: 20vh;
+  }
+  .threadInputNoEdit {
+    width: 100%;
+  }
+}

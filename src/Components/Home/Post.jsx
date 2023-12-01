@@ -184,6 +184,20 @@ export default function Post({
     string = string.replace(/<br\/>/g, "");
     post.content = e.target.innerHTML;
   };
+  const handlePaste = (e) => {
+    e.preventDefault();
+
+    // Get pasted data
+    const pastedData = (e.clipboardData || window.clipboardData).getData(
+      "Text"
+    );
+
+    if (pastedData) {
+      // If the pasted data is text, insert it at the cursor position
+      document.execCommand("insertText", false, pastedData);
+    }
+  };
+
   return (
     <div className={`${styles.post}`}>
       <div className={`${styles.postHeader}`} onClick={() => setOpenPost()}>
@@ -210,6 +224,7 @@ export default function Post({
               onBlur={(e) => {
                 handleBlur(e, post);
               }}
+              onPaste={(e) => handlePaste(e)}
             ></div>
           </div>
         ))}
@@ -225,6 +240,7 @@ export default function Post({
             setComment(e.target.innerHTML);
           }}
           onKeyDown={(e) => handleEnter(e)}
+          onPaste={(e) => handlePaste(e)}
         ></div>
         <button
           className={
